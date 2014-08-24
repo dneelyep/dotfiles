@@ -181,7 +181,7 @@
 	))
 
 (setq org-todo-keywords
-      '((sequence "TODO" "DONE")))
+      '((sequence "TODO" "DONE" "QUES" "WAIT")))
 
 ;; Start the emacs server.
 (server-start)
