@@ -5,7 +5,6 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(compile-command "c:/MinGW/msys/1.0/bin/make -k ")
- '(custom-safe-themes (quote ("cb47b7350e385eeb60ab40011534a39fd50a76a7bbdea5f1d2bda36076fc65bf" default)))
  '(desktop-save-mode t)
  '(exec-path (quote ("c:/Program Files (x86)/Haskell/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/lib/extralibs/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/bin" "C:/Program Files/Common Files/Microsoft Shared/Windows Live" "C:/Program Files (x86)/Common Files/Microsoft Shared/Windows Live" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Program Files/Intel/WiFi/bin/" "C:/Program Files/Common Files/Intel/WirelessCommon/" "C:/Program Files (x86)/Common Files/Lenovo" "C:/Program Files/Common Files/Lenovo" "C:/Program Files (x86)/Windows Live/Shared" "C:/SWTOOLS/ReadyApps" "C:/Program Files (x86)/Intel/Services/IPT/" "C:/Program Files (x86)/Symantec/VIP Access Client/" "c:/Program Files (x86)/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/DTS/Binn/" "C:/Program Files (x86)/Mozart/bin" "C:/hla" "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/" "C:/Ruby193/bin" "C:Program Files/Java/jdk1.7.0_02/bin" "c:/emacs/emacs-24.1/bin" "C:/MinGW/msys/1.0/bin/" "C:/MinGW/bin/" "C:/cygwin/bin/")))
  '(menu-bar-mode t)
@@ -28,8 +27,14 @@
 
 (autoload 'xml-mode "nxml" "XML editing mode" t)
 
+;; Use the Wombat theme for colors.
+(load-theme 'wombat)
+
 (eval-after-load 'rng-loc
   '(add-to-list 'rng-schema-locating-files "~/.schema/schemas.xml"))
+
+;; Disable creation of backup files (bird droppings).
+(setq make-backup-files nil)
 
 ;; ======================
 ;; Org mode configuration
@@ -83,14 +88,6 @@
 (ido-mode 1)
 (put 'narrow-to-region 'disabled nil)
 
-;; Color-theme configuration.
-(add-to-list 'load-path "c:/emacs/.emacs.d/color-theme-6.6.0/")
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-calm-forest)))
-
 ;; Slime configuration.
 ;;(add-to-list 'load-path "c:/emacs/.emacs.d/slime-current/slime-2012-02-16/"
 ;;(setq inferior-lisp-program "/opt/sbcl/bin/sbcl") ; your Lisp system
@@ -101,7 +98,6 @@
 (global-set-key [f6] 'enlarge-window-horizontally)
 
 ;; TODO: Set a default command prompt (eg Mingw) for M-x ansi-term
-
 
 ;; Enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
@@ -169,3 +165,25 @@
 ;; Enable highlighting of the current line.
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#150")
+
+;; Visual Basic .NET mode configuration.
+(autoload 'vbnet-mode "vbnet-mode" "Mode for editing VB.NET code." t)
+(setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vb\\)$" .
+                                 vbnet-mode)) auto-mode-alist))
+
+;; Custom org-mode keywords and settings.
+(setq org-todo-keyword-faces
+      '(
+	("TODO"     . (:foreground "red"    :weight bold))
+	("DONE"     . (:foreground "green"  :weight bold))
+	("QUES"     . (:foreground "purple" :weight bold))
+	("WAIT"     . (:foreground "yellow" :weight bold))
+	))
+
+(setq org-todo-keywords
+      '((sequence "TODO" "DONE")))
+
+;; Start the emacs server.
+(server-start)
+
+(print "Hello, Daniel. Your .emacs is now loaded.")
