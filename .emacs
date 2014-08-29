@@ -143,8 +143,11 @@
 ;; Marmalade package repository configuration (so I can download extra packages)
 (require 'package)
 (add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+ ;   '("marmalade" .
+ ;     "http://marmalade-repo.org/packages/")
+    '("melpa-stable" .
+      "http://melpa-stable.milkbox.net/packages/")
+)
 (package-initialize)
 
 ;; Set page-down/up equivalents (C-v, M-v) to move point to
@@ -182,6 +185,9 @@
 
 (setq org-todo-keywords
       '((sequence "TODO" "DONE" "QUES" "WAIT")))
+
+;; Helm mode configuration.
+(helm-mode)
 
 ;; Start the emacs server.
 (server-start)
