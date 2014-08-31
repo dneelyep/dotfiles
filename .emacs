@@ -192,4 +192,15 @@
 ;; Start the emacs server.
 (server-start)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;; Custom ELisp functions ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun avg (&rest number-list)
+  "Averages a list of numbers"
+  (setq sum (apply '+ number-list))
+  (/ sum (length number-list)))
+
 (print "Hello, Daniel. Your .emacs is now loaded.")
