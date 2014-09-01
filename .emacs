@@ -203,4 +203,9 @@
   (setq sum (apply '+ number-list))
   (/ sum (length number-list)))
 
+(defun new-scratch-buffer ()
+  "Creates and switches to a new scratch buffer"
+  (interactive)
+  (switch-to-buffer (concat "*scratch " (current-time-string) "*")))
+
 (print "Hello, Daniel. Your .emacs is now loaded.")
