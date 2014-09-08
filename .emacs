@@ -6,9 +6,9 @@
  '(column-number-mode t)
  '(compile-command "c:/MinGW/msys/1.0/bin/make -k ")
  '(desktop-save-mode t)
- '(exec-path (quote ("c:/Program Files (x86)/Haskell/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/lib/extralibs/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/bin" "C:/Program Files/Common Files/Microsoft Shared/Windows Live" "C:/Program Files (x86)/Common Files/Microsoft Shared/Windows Live" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Program Files/Intel/WiFi/bin/" "C:/Program Files/Common Files/Intel/WirelessCommon/" "C:/Program Files (x86)/Common Files/Lenovo" "C:/Program Files/Common Files/Lenovo" "C:/Program Files (x86)/Windows Live/Shared" "C:/SWTOOLS/ReadyApps" "C:/Program Files (x86)/Intel/Services/IPT/" "C:/Program Files (x86)/Symantec/VIP Access Client/" "c:/Program Files (x86)/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/DTS/Binn/" "C:/Program Files (x86)/Mozart/bin" "C:/hla" "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/" "C:/Ruby193/bin" "C:Program Files/Java/jdk1.7.0_02/bin" "c:/emacs/emacs-24.1/bin" "C:/MinGW/msys/1.0/bin/" "C:/MinGW/bin/" "C:/cygwin/bin/")))
+ '(exec-path (quote ("c:/Program Files (x86)/Haskell/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/lib/extralibs/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/bin" "C:/Program Files/Common Files/Microsoft Shared/Windows Live" "C:/Program Files (x86)/Common Files/Microsoft Shared/Windows Live" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Program Files/Intel/WiFi/bin/" "C:/Program Files/Common Files/Intel/WirelessCommon/" "C:/Program Files (x86)/Common Files/Lenovo" "C:/Program Files/Common Files/Lenovo" "C:/Program Files (x86)/Windows Live/Shared" "C:/SWTOOLS/ReadyApps" "C:/Program Files (x86)/Intel/Services/IPT/" "C:/Program Files (x86)/Symantec/VIP Access Client/" "c:/Program Files (x86)/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/DTS/Binn/" "C:/Program Files (x86)/Mozart/bin" "C:/hla" "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/" "C:/Ruby193/bin" "C:Program Files/Java/jdk1.7.0_02/bin" "c:/emacs/emacs-24.1/bin" "C:/MinGW/msys/1.0/bin/" "C:/MinGW/bin/" "C:/cygwin/bin/" "C:/Users/DANIEL!/GNUUtils")))
  '(menu-bar-mode t)
- '(org-agenda-files (quote ("c:/Users/Daniel/Desktop/todo.org")))
+ '(org-agenda-files (quote ("c:/Users/DANIEL!/Desktop/notes.org")))
  '(org-capture-templates (quote (("e211" "ECE 211" entry (file+olp "c:/Users/Daniel/Desktop/todo.org" "School" "ECE 211") "* TODO %^{Description}") ("c" "CECS 288" entry (file+olp "c:/Users/Daniel/Desktop/todo.org" "School" "CECS 288") "* TODO %^{Description}") ("i" "IE 360" entry (file+olp "c:/Users/Daniel/Desktop/todo.org" "School" "IE 360") "* TODO %^{Description}") ("e252" "ECE 252" entry (file+olp "c:/Users/Daniel/Desktop/todo.org" "School" "ECE 252") "* TODO %^{Description}") ("e210" "ECE 210" entry (file+olp "c:/Users/Daniel/Desktop/todo.org" "School" "ECE 210") "* TODO %^{Description}"))))
  '(org-tag-faces (quote (("school" . "(:foreground \"black\" :background \"gray\" :weight bold)") ("cecs_302" :foreground "black" :background "red" :weight bold) ("cecs_311" :foreground "black" :background "yellow" :weight bold) ("engr_102" :foreground "black" :background "purple" :weight bold) ("cee_205" :foreground "black" :background "orange" :weight bold) ("phys_295" :foreground "black" :background "blue" :weight bold) ("engr_100" :foreground "black" :background "green" :weight bold))))
  '(shell-file-name "C:/MinGW/msys/1.0/bin/bash.exe")
@@ -189,10 +189,6 @@
 ;; Helm mode configuration.
 (helm-mode)
 
-;; Start the emacs server.
-(server-start)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;; Custom ELisp functions ;;;;;
@@ -207,5 +203,21 @@
   "Creates and switches to a new scratch buffer"
   (interactive)
   (switch-to-buffer (concat "*scratch " (current-time-string) "*")))
+
+;; Mobile Org setup
+(setq org-directory "~/org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(defcustom org-mobile-checksum-binary (or (executable-find "shasum")
+					  (executable-find "sha1sum")
+					  (executable-find "md5sum")
+					  (executable-find "md5"))
+  "Executable used for computing checksums of agenda fields."
+  :group 'org-mobile
+  :type 'string)
+(require 'org-install)
+(require 'org-mobile)
+
+;; Start the emacs server.
+(server-start)
 
 (print "Hello, Daniel. Your .emacs is now loaded.")
