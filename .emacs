@@ -112,7 +112,7 @@
 (set-frame-parameter (selected-frame) 'alpha '(97 70))
 (add-to-list 'default-frame-alist '(alpha 97 70))
 
-(defun add-typeracer-day () 
+(defun dn-add-typeracer-day () 
   "Add a new day to my Typeracer function table, with no values filled in."
   (interactive)
   (previous-line)
@@ -199,12 +199,12 @@
 ;;;;;; Custom ELisp functions ;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun avg (&rest number-list)
+(defun dn-avg (&rest number-list)
   "Averages a list of numbers"
   (setq sum (apply '+ number-list))
   (/ sum (length number-list)))
 
-(defun new-scratch-buffer ()
+(defun dn-new-scratch-buffer ()
   "Creates and switches to a new scratch buffer"
   (interactive)
   (switch-to-buffer (concat "*scratch " (current-time-string) "*")))
