@@ -213,39 +213,6 @@
 (defun dn-lines-to-csv (separator)
   "Converts the current region lines to a single line, CSV value, separated by the provided separator string."
   (interactive "sEnter separator character: ")
-  (setq current-region-string (buffer-substring-no-properties (region-beginning) (region-end)))
-  (insert
-   (mapconcat 'identity
-              (split-string current-region-string "\n")
-              separator)))
-
-(defun dn-csv-to-lines (separator)
-  "Converts the current region line, as a csv string, to a set of independent lines, splitting the string based on the provided separator."
-  (interactive "sEnter separator character: ")
-  (setq current-region-string (buffer-substring-no-properties (region-beginning) (region-end)))
-  (insert
-   (mapconcat 'identity
-              (split-string current-region-string separator)
-              "\n")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;; Custom ELisp functions ;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun dn-avg (&rest number-list)
-  "Averages a list of numbers"
-  (setq sum (apply '+ number-list))
-  (/ sum (length number-list)))
-
-(defun dn-new-scratch-buffer ()
-  "Creates and switches to a new scratch buffer"
-  (interactive)
-  (switch-to-buffer (concat "*scratch " (current-time-string) "*")))
-
-(defun dn-lines-to-csv (separator)
-  "Converts the current region lines to a single line, CSV value, separated by the provided separator string."
-  (interactive "sEnter separator character: ")
   (insert
    (mapconcat 'identity
               (split-string (dn-current-region-string) "\n")
@@ -273,7 +240,7 @@
   "Returns the currently-highlighted region's text as a string."
   (buffer-substring-no-properties (region-beginning) (region-end)))
 
- (defun dn-delete-leading-whitespace (start end)
+(defun dn-delete-leading-whitespace (start end)
    "Delete whitespace at the beginning of each line in region."
    (interactive "*r")
    ;;; Taken from: http://www.emacswiki.org/emacs/DeletingWhitespace
