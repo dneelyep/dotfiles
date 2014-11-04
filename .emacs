@@ -7,6 +7,7 @@
  '(compile-command "c:/MinGW/msys/1.0/bin/make -k ")
  '(desktop-save-mode t)
  '(exec-path (quote ("c:/Program Files (x86)/Haskell/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/lib/extralibs/bin" "C:/Program Files (x86)/Haskell Platform/2011.4.0.0/bin" "C:/Program Files/Common Files/Microsoft Shared/Windows Live" "C:/Program Files (x86)/Common Files/Microsoft Shared/Windows Live" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Program Files/Intel/WiFi/bin/" "C:/Program Files/Common Files/Intel/WirelessCommon/" "C:/Program Files (x86)/Common Files/Lenovo" "C:/Program Files/Common Files/Lenovo" "C:/Program Files (x86)/Windows Live/Shared" "C:/SWTOOLS/ReadyApps" "C:/Program Files (x86)/Intel/Services/IPT/" "C:/Program Files (x86)/Symantec/VIP Access Client/" "c:/Program Files (x86)/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/Tools/Binn/" "c:/Program Files/Microsoft SQL Server/100/DTS/Binn/" "C:/Program Files (x86)/Mozart/bin" "C:/hla" "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/" "C:/Ruby193/bin" "C:Program Files/Java/jdk1.7.0_02/bin" "c:/emacs/emacs-24.1/bin" "C:/MinGW/msys/1.0/bin/" "C:/MinGW/bin/" "C:/cygwin/bin/" "C:/Users/DANIEL!/GNUUtils")))
+ '(global-rainbow-delimiters-mode t)
  '(indent-tabs-mode nil)
  '(menu-bar-mode t)
  '(org-agenda-files (quote ("c:/Users/DANIEL!/Desktop/notes.org")))
@@ -226,6 +227,59 @@
    (mapconcat 'identity
               (split-string current-region-string separator)
               "\n")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;; Custom ELisp functions ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun dn-avg (&rest number-list)
+  "Averages a list of numbers"
+  (setq sum (apply '+ number-list))
+  (/ sum (length number-list)))
+
+(defun dn-new-scratch-buffer ()
+  "Creates and switches to a new scratch buffer"
+  (interactive)
+  (switch-to-buffer (concat "*scratch " (current-time-string) "*")))
+
+(defun dn-lines-to-csv (separator)
+  "Converts the current region lines to a single line, CSV value, separated by the provided separator string."
+  (interactive "sEnter separator character: ")
+  (insert
+   (mapconcat 'identity
+              (split-string (dn-current-region-string) "\n")
+              separator)))
+
+(defun dn-csv-to-lines (separator)
+  "Converts the current region line, as a csv string, to a set of independent lines, splitting the string based on the provided separator."
+  (interactive "sEnter separator character: ")
+  (insert
+   (mapconcat 'identity
+              (split-string (dn-current-region-string) separator)
+              "\n")))
+
+(defun dn-csv-insert-distinct-values (separator)
+  "Insert at point the distinct values in the current region."
+  (interactive "sEnter separator character: ")
+  (setq line-list (split-string (dn-current-region-string) separator))
+
+  (insert
+   (mapconcat 'identity
+              (delq "" (delq nil (delete-dups line-list)))
+              "\n")))
+
+(defun dn-current-region-string ()
+  "Returns the currently-highlighted region's text as a string."
+  (buffer-substring-no-properties (region-beginning) (region-end)))
+
+ (defun dn-delete-leading-whitespace (start end)
+   "Delete whitespace at the beginning of each line in region."
+   (interactive "*r")
+   ;;; Taken from: http://www.emacswiki.org/emacs/DeletingWhitespace
+   (save-excursion
+     (if (not (bolp)) (forward-line 1))
+     (delete-whitespace-rectangle (point) end nil)))
 
 (setq org-directory "~/org")
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
