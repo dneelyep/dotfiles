@@ -22,4 +22,6 @@ function help($targetCommand)
     Get-Help $targetCommand | less
 }
 
+Set-PSReadlineOption -EditMode Emacs
+
 "...Daniel's PowerShell customizations have been loaded."
